@@ -97,100 +97,107 @@ val currenciesList = listOf(
 @Preview(showBackground = false)
 @Composable
 fun CurrenciesSection() {
-    var isVisible by remember { mutableStateOf(false) }
+    var isVisible by remember { mutableStateOf(true) }
     var iconsState by remember { mutableStateOf(Icons.Rounded.KeyboardArrowUp) }
 
-    Column(
+    Box(
         modifier = Modifier
-            .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
-            .background(MaterialTheme.colorScheme.inverseOnSurface)
-            .animateContentSize()
+            .fillMaxSize()
+            .padding(top = 32.dp),
+        contentAlignment = Alignment.BottomCenter
     ) {
-        Row(
+        Column(
             modifier = Modifier
-                .padding(16.dp)
+                .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
+                .background(MaterialTheme.colorScheme.inverseOnSurface)
                 .animateContentSize()
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
         ) {
-            Box(modifier = Modifier
-                .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.secondary)
-                .clickable {
-                    isVisible = !isVisible
-                    if (isVisible) {
-                        iconsState = Icons.Rounded.KeyboardArrowUp
-                    } else {
-                        iconsState = Icons.Rounded.KeyboardArrowDown
-                    }
-                }
+            Row(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .animateContentSize()
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                Icon(
-                    modifier = Modifier.size(25.dp),
-                    imageVector = iconsState,
-                    contentDescription = "Currencies",
-                    tint = MaterialTheme.colorScheme.onSecondary
+                Box(modifier = Modifier
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.secondary)
+                    .clickable {
+                        isVisible = !isVisible
+                        if (isVisible) {
+                            iconsState = Icons.Rounded.KeyboardArrowUp
+                        } else {
+                            iconsState = Icons.Rounded.KeyboardArrowDown
+                        }
+                    }
+                ) {
+                    Icon(
+                        modifier = Modifier.size(25.dp),
+                        imageVector = iconsState,
+                        contentDescription = "Currencies",
+                        tint = MaterialTheme.colorScheme.onSecondary
+                    )
+                }
+                Spacer(modifier = Modifier.width(20.dp))
+                Text(
+                    text = "Currencies",
+                    modifier = Modifier.padding(start = 10.dp, end = 40.dp),
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
                 )
             }
-            Spacer(modifier = Modifier.width(20.dp))
-            Text(
-                text = "Currencies",
-                modifier = Modifier.padding(start = 10.dp, end = 40.dp),
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSecondaryContainer
-            )
-        }
-        Spacer(
-            modifier = Modifier
-                .height(1.dp)
-                .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.secondaryContainer)
-        )
-        if (isVisible) {
-            BoxWithConstraints(
+            Spacer(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 16.dp)
-                    .clip(RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp))
-                    .background(MaterialTheme.colorScheme.background)
-            ) {
-                val boxWithConstraintsScope = this
-                val width = boxWithConstraintsScope.maxWidth / 3
-                Column(
+                    .height(1.dp)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.secondaryContainer)
+            )
+            if (isVisible) {
+                BoxWithConstraints(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
+                        .fillMaxSize()
+                        .padding(horizontal = 4.dp)
+                        .clip(RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp))
+                        .background(MaterialTheme.colorScheme.background)
                 ) {
-                    Row(modifier = Modifier.fillMaxWidth()) {
-                        Text(
-                            modifier = Modifier.width(width),
-                            text = "Currency",
-                            fontWeight = FontWeight.SemiBold,
-                            fontSize = 16.sp,
-                            color = MaterialTheme.colorScheme.onBackground
-                        )
-                        Text(
-                            modifier = Modifier.width(width),
-                            text = "Buy",
-                            fontWeight = FontWeight.SemiBold,
-                            fontSize = 16.sp,
-                            color = MaterialTheme.colorScheme.onBackground,
-                            textAlign = TextAlign.End
-                        )
-                        Text(
-                            modifier = Modifier.width(width),
-                            text = "Sell",
-                            fontWeight = FontWeight.SemiBold,
-                            fontSize = 16.sp,
-                            color = MaterialTheme.colorScheme.onBackground,
-                            textAlign = TextAlign.End
-                        )
-                    }
-                    Spacer(modifier = Modifier.height(16.dp))
-                    LazyColumn {
-                        items(currenciesList.size) { index ->
-                            CurrencyItem(index, width)
+                    val boxWithConstraintsScope = this
+                    val width = boxWithConstraintsScope.maxWidth / 3
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                    ) {
+                        Row(modifier = Modifier.fillMaxWidth()) {
+                            Text(
+                                modifier = Modifier.width(width),
+                                text = "Currency",
+                                fontWeight = FontWeight.SemiBold,
+                                fontSize = 16.sp,
+                                color = MaterialTheme.colorScheme.onBackground
+                            )
+                            Text(
+                                modifier = Modifier.width(width),
+                                text = "Buy",
+                                fontWeight = FontWeight.SemiBold,
+                                fontSize = 16.sp,
+                                color = MaterialTheme.colorScheme.onBackground,
+                                textAlign = TextAlign.Center
+                            )
+                            Text(
+                                modifier = Modifier.width(width),
+                                text = "Sell",
+                                fontWeight = FontWeight.SemiBold,
+                                fontSize = 16.sp,
+                                color = MaterialTheme.colorScheme.onBackground,
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(16.dp))
+                        LazyColumn {
+                            items(currenciesList.size) { index ->
+                                CurrencyItem(index, width)
+                            }
                         }
                     }
                 }
@@ -222,6 +229,37 @@ fun CurrencyItem(index: Int, width: Dp) {
                 tint = Color.White
             )
         }
+        Text(
+            modifier = Modifier
+                .width(width)
+                .padding(start = 10.dp),
+            text = currency.name,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onBackground,
+            fontSize = 16.sp,
+            textAlign = TextAlign.Start
+        )
+
+        Text(
+            modifier = Modifier
+                .width(width)
+                .padding(start = 10.dp),
+            text = "$ ${currency.formatFloat(currency.buy)}",
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onBackground,
+            fontSize = 16.sp,
+            textAlign = TextAlign.Start
+        )
+        Text(
+            modifier = Modifier
+                .width(width)
+                .padding(start = 10.dp),
+            text = "$ ${currency.formatFloat(currency.sell)}",
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onBackground,
+            fontSize = 16.sp,
+            textAlign = TextAlign.Start
+        )
     }
 }
 
