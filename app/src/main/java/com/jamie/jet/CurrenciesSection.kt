@@ -97,7 +97,7 @@ val currenciesList = listOf(
 @Preview(showBackground = false)
 @Composable
 fun CurrenciesSection() {
-    var isVisible by remember { mutableStateOf(true) }
+    var isVisible by remember { mutableStateOf(false) }
     var iconsState by remember { mutableStateOf(Icons.Rounded.KeyboardArrowUp) }
 
     Box(
@@ -166,31 +166,35 @@ fun CurrenciesSection() {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(16.dp)
+                            .padding(horizontal = 16.dp)
                     ) {
-                        Row(modifier = Modifier.fillMaxWidth()) {
+                        Row(modifier = Modifier.fillMaxWidth().padding(top = 10.dp)) {
                             Text(
                                 modifier = Modifier.width(width),
                                 text = "Currency",
-                                fontWeight = FontWeight.SemiBold,
+                                fontWeight = FontWeight.Bold,
                                 fontSize = 16.sp,
                                 color = MaterialTheme.colorScheme.onBackground
                             )
                             Text(
-                                modifier = Modifier.width(width),
+                                modifier = Modifier
+                                    .width(width)
+                                    .padding(start = 10.dp),
                                 text = "Buy",
-                                fontWeight = FontWeight.SemiBold,
+                                fontWeight = FontWeight.Bold,
                                 fontSize = 16.sp,
                                 color = MaterialTheme.colorScheme.onBackground,
-                                textAlign = TextAlign.Center
+                                textAlign = TextAlign.Start
                             )
                             Text(
-                                modifier = Modifier.width(width),
+                                modifier = Modifier
+                                    .width(width)
+                                    .padding(start = 10.dp),
                                 text = "Sell",
-                                fontWeight = FontWeight.SemiBold,
+                                fontWeight = FontWeight.Bold,
                                 fontSize = 16.sp,
                                 color = MaterialTheme.colorScheme.onBackground,
-                                textAlign = TextAlign.Center
+                                textAlign = TextAlign.Start
                             )
                         }
                         Spacer(modifier = Modifier.height(16.dp))
@@ -216,30 +220,34 @@ fun CurrencyItem(index: Int, width: Dp) {
             .padding(bottom = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Box(
-            modifier = Modifier
-                .clip(RoundedCornerShape(8.dp))
-                .background(GreenStart)
-                .padding(4.dp)
+        Row(
+            modifier = Modifier.width(width),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                modifier = Modifier.size(18.dp),
-                imageVector = currency.icon,
-                contentDescription = currency.name,
-                tint = Color.White
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(GreenStart)
+                    .padding(4.dp)
+            ) {
+                Icon(
+                    modifier = Modifier.size(18.dp),
+                    imageVector = currency.icon,
+                    contentDescription = currency.name,
+                    tint = Color.White
+                )
+            }
+            Text(
+                modifier = Modifier
+                    .width(width)
+                    .padding(start = 10.dp),
+                text = currency.name,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onBackground,
+                fontSize = 16.sp,
+                textAlign = TextAlign.Start
             )
         }
-        Text(
-            modifier = Modifier
-                .width(width)
-                .padding(start = 10.dp),
-            text = currency.name,
-            fontWeight = FontWeight.SemiBold,
-            color = MaterialTheme.colorScheme.onBackground,
-            fontSize = 16.sp,
-            textAlign = TextAlign.Start
-        )
-
         Text(
             modifier = Modifier
                 .width(width)
