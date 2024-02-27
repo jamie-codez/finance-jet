@@ -24,6 +24,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.jamie.jet.ui.theme.JetTheme
 
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -56,9 +57,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun HomeScreen() {
     Scaffold(
-//        topBar = {
-//            WalletSection()
-//        },
         bottomBar = {
             BottomNavigationBar()
         }
